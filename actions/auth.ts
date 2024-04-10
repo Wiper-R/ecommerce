@@ -7,12 +7,14 @@ import { CreateUserSchema, LoginUserSchema } from '@/lib/validation/auth';
 
 export async function createUser(data: CreateUserSchema) {
   try {
+    // TODO: change salt
+    var password = await bcrypt.hash(data.password, 12);
     var user = await prisma.user.create({
       data: {
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
-        credentials: { create: { password: data.password } }
+        credentials: { create: { password } }
       }
     });
   } catch (e) {
