@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/navbar';
 import { cn } from '@/lib/utils';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={cn(inter.className, 'overflow-hidden flex flex-col')}>
         <Navbar />
         <div className="overflow-auto flex-grow flex flex-col">{children}</div>
+        <Toaster />
       </body>
     </html>
   );
