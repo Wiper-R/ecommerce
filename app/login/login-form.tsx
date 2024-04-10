@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SubmitButton } from '@/components/submit-button';
 import { useEffect } from 'react';
+import { toast } from '@/components/ui/use-toast';
 
 export default function LoginForm() {
   const form = useForm<LoginUserSchema>({
@@ -25,19 +26,15 @@ export default function LoginForm() {
   const onValid = async (data: LoginUserSchema) => {
     const result = await loginUser(data);
     if ('error' in result) {
-      form.setError('root', { message: result.error });
-    }
-
-    form.formState.errors.root;
-  };
-
-  useEffect(() => {
-    if (!form.formState.errors.root) {
+      toast({ title: 'Error', description: result.error });
       return;
     }
 
-    // toast({title: "Error", description: form.formState.errors.root})
-  }, [form.formState.errors.root]);
+    toast({ title: 'Success', description: 'Log in successfull' });
+
+    // Handle user data?
+  };
+
   return (
     <Card className="max-w-[360px] w-full mx-auto">
       <CardHeader>
@@ -45,7 +42,7 @@ export default function LoginForm() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onValid)}>
+          <form onSubmit={form.handleSubmit(onValid)} noValidate>
             <div className="space-y-2">
               <FormField
                 control={form.control}

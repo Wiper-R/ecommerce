@@ -1,5 +1,5 @@
 import { FormContainer } from '@/components/containers/form-container';
-import SignUpForm from './sign-up-form';
+import SignUpForm from './signup-form';
 
 export default function Page() {
   return (

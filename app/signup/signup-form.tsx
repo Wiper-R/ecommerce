@@ -14,6 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SubmitButton } from '@/components/submit-button';
+import { toast } from '@/components/ui/use-toast';
 
 export default function SignUpForm() {
   const form = useForm<CreateUserSchema>({
@@ -23,7 +24,15 @@ export default function SignUpForm() {
 
   const onValid = async (data: CreateUserSchema) => {
     const result = await createUser(data);
-    console.log(result);
+    if ('error' in result) {
+      toast({ title: 'Error', description: result.error });
+      return;
+    }
+
+    toast({
+      title: 'Success',
+      description: 'Signup successfull, you can now login'
+    });
   };
   return (
     <Card className="max-w-[360px] w-full mx-auto">
@@ -32,7 +41,7 @@ export default function SignUpForm() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onValid)}>
+          <form onSubmit={form.handleSubmit(onValid)} noValidate>
             <div className="space-y-2">
               <FormField
                 control={form.control}
