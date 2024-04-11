@@ -1,33 +1,13 @@
 'use client';
 
-// import { trpc } from "@/app/_trpc/client";
-import { PropsWithChildren, createContext, useReducer } from 'react';
-
-type Session = {
-  user: any | null;
-};
-
-type SessionStateKind = 'loading' | 'authenticated' | 'unauthenticated';
-
-type TSession = Session | undefined | null;
-
-type SessionContext = {
-  session: SessionState;
-  dispatch: React.Dispatch<SessionAction>;
-};
-
-type SessionState = {
-  data?: Session | undefined | null;
-  state: SessionStateKind;
-};
+import { PropsWithChildren, createContext, useEffect, useReducer } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getCurrentUser } from '@/actions/auth';
+import { SessionAction, type SessionContext, SessionState } from '../types';
 
 const initialState: SessionState = {
   state: 'loading'
 };
-
-export type SessionAction =
-  | { type: 'logout' | 'login_failed' }
-  | { type: 'login_success'; payload: any };
 
 const sessionReducer = (
   state: SessionState,
@@ -56,6 +36,26 @@ const SessionContext = createContext<SessionContext | null>(null);
 const SessionProvider = ({ children }: PropsWithChildren) => {
   const [session, dispatch] = useReducer(sessionReducer, initialState);
 
+  // async function queryFunction() {
+  //   const user = await getCurrentUser();
+  //   console.log(user);
+
+  //   return user;
+  // }
+
+  const { data, isFetched } = useQuery({
+    queryFn: async () => await getCurrentUser(),
+    queryKey: ['user']
+  });
+
+  useEffect(() => {
+    console.log(session);
+  }, [session.data]);
+
+  useEffect(() => {
+    console.log(session.state);
+  }, [session.state]);
+
   // const { data, isFetched } = trpc.auth.user.useQuery(
   //   undefined,
   //   {
@@ -63,14 +63,14 @@ const SessionProvider = ({ children }: PropsWithChildren) => {
   //   },
   // );
 
-  // useEffect(() => {
-  //   if (!isFetched) return;
-  //   if (data) {
-  //     dispatch({ type: "login_success", payload: data });
-  //   } else {
-  //     dispatch({ type: "login_failed" });
-  //   }
-  // }, [isFetched, data]);
+  useEffect(() => {
+    if (!isFetched) return;
+    if (data) {
+      dispatch({ type: 'login_success', payload: data });
+    } else {
+      dispatch({ type: 'login_failed' });
+    }
+  }, [data, isFetched]);
 
   return (
     <SessionContext.Provider value={{ session, dispatch }}>
@@ -79,4 +79,4 @@ const SessionProvider = ({ children }: PropsWithChildren) => {
   );
 };
 
-export { SessionProvider, SessionContext, type TSession };
+export { SessionProvider, SessionContext };

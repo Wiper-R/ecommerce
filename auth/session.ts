@@ -1,10 +1,10 @@
+'use server';
+
 import { cookies } from 'next/headers';
 import { jwtVerify, SignJWT } from 'jose';
 import prisma from '@/prisma/db';
-import { TSession } from './contexts/session-context';
+import { TSession } from './types';
 import config from '@/config/server';
-
-export const dynamic = 'force-dynamic';
 
 export const getSession = async (): Promise<TSession> => {
   const token = cookies().get(config.TOKEN_KEY);
@@ -29,5 +29,8 @@ export const logSession = async (sub: string) => {
   const token = await new SignJWT({ sub })
     .setProtectedHeader({ alg: 'HS256' })
     .sign(encodedSecret);
-  cookies().set(config.TOKEN_KEY, token, { httpOnly: true });
+  cookies().set(config.TOKEN_KEY, token, {
+    httpOnly: true,
+    sameSite: 'strict'
+  });
 };
