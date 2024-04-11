@@ -12,16 +12,25 @@ import { LoginUserSchema } from '@/lib/validation/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import { SubmitButton } from '@/components/submit-button';
 import { useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
+import { useSession } from '@/auth';
 
 export default function LoginForm() {
   const form = useForm<LoginUserSchema>({
     resolver: zodResolver(LoginUserSchema),
     defaultValues: { email: '', password: '' }
   });
+
+  const { session, dispatch } = useSession();
 
   const onValid = async (data: LoginUserSchema) => {
     const result = await loginUser(data);
@@ -31,6 +40,7 @@ export default function LoginForm() {
     }
 
     toast({ title: 'Success', description: 'Log in successful' });
+    dispatch({ type: 'login_success', payload: result });
 
     // Handle user data?
   };
@@ -78,6 +88,7 @@ export default function LoginForm() {
           </span>
         )}
       </CardContent>
+      <CardFooter>Logged in as {session.data?.user?.firstName}</CardFooter>
     </Card>
   );
 }
