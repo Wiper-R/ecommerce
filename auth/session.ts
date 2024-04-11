@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { jwtVerify } from 'jose';
+import { jwtVerify, SignJWT } from 'jose';
 import prisma from '@/prisma/db';
 import { TSession } from './contexts/session-context';
 import config from '@/config/server';
@@ -22,4 +22,12 @@ export const verifySession = async (token: string) => {
   if (!token) return null;
   const secret = new TextEncoder().encode(config.AUTH_SECRET);
   return await jwtVerify(token, secret);
+};
+
+export const logSession = async (sub: string) => {
+  const encodedSecret = new TextEncoder().encode(config.AUTH_SECRET);
+  const token = await new SignJWT({ sub })
+    .setProtectedHeader({ alg: 'HS256' })
+    .sign(encodedSecret);
+  cookies().set(config.TOKEN_KEY, token, { httpOnly: true });
 };
