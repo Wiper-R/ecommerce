@@ -31,7 +31,7 @@ export default function SignUpForm() {
 
     toast({
       title: 'Success',
-      description: 'Signup successfull, you can now login'
+      description: 'Sign up successful, you can now login'
     });
   };
   return (
