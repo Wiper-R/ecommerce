@@ -1,5 +1,5 @@
 import prisma from '@/prisma/db';
 
 export default async function Home() {
-  return <></>;
+  return <>Test</>;
 }

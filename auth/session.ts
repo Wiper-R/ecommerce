@@ -5,6 +5,7 @@ import { jwtVerify, SignJWT } from 'jose';
 import prisma from '@/prisma/db';
 import { TSession } from './types';
 import config from '@/config/server';
+import moment from 'moment';
 
 export const getSession = async (): Promise<TSession> => {
   const token = cookies().get(config.TOKEN_KEY);
@@ -26,11 +27,14 @@ export const verifySession = async (token: string) => {
 
 export const logSession = async (sub: string) => {
   const encodedSecret = new TextEncoder().encode(config.AUTH_SECRET);
+  const expires = moment().add({ hours: 1 }).toDate();
   const token = await new SignJWT({ sub })
     .setProtectedHeader({ alg: 'HS256' })
+    .setExpirationTime(expires)
     .sign(encodedSecret);
   cookies().set(config.TOKEN_KEY, token, {
     httpOnly: true,
-    sameSite: 'strict'
+    sameSite: 'strict',
+    expires
   });
 };
