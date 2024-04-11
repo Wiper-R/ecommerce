@@ -1,5 +1,7 @@
 {
   "conventionalCommits.scopes": ["ui", "validation"],
   "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "modifications"
+  "editor.formatOnSaveMode": "modifications",
+  "cSpell.words": ["hookform"],
+  "cSpell.language": "en,lorem"
 }
