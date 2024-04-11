@@ -11,7 +11,7 @@ export async function Navbar() {
   return (
     <header className="bg-background/40 backdrop-blur sticky top-0 flex justify-between p-4 shadow-sm items-center gap-10">
       <Link href="/" className="text-lg font-semibold italic">
-        Ecommerce
+        Kharidify
       </Link>
       <form className="flex-grow relative flex">
         <Input type="search" />
