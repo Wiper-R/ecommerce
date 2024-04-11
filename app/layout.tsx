@@ -4,6 +4,9 @@ import './globals.css';
 import { Navbar } from '@/components/navbar';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import { SessionProvider } from '@/auth';
+import { QueryClientProvider } from '@/lib/queryClient-provider';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,9 +23,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, 'overflow-hidden flex flex-col')}>
-        <Navbar />
-        <div className="overflow-auto flex-grow flex flex-col">{children}</div>
-        <Toaster />
+        <QueryClientProvider>
+          <SessionProvider>
+            <Navbar />
+            <div className="overflow-auto flex-grow flex flex-col">
+              {children}
+            </div>
+            <Toaster />
+          </SessionProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </body>
     </html>
   );
