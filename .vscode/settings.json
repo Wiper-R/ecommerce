@@ -1,5 +1,5 @@
 {
-  "conventionalCommits.scopes": ["ui", "validation"],
+  "conventionalCommits.scopes": ["ui", "validation", "deps"],
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "modifications",
   "cSpell.words": ["hookform"],
