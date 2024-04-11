@@ -30,7 +30,7 @@ export default function LoginForm() {
       return;
     }
 
-    toast({ title: 'Success', description: 'Log in successfull' });
+    toast({ title: 'Success', description: 'Log in successful' });
 
     // Handle user data?
   };
