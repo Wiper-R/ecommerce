@@ -1,33 +1,21 @@
-- name: Conventional Changelog Action
-  uses: TriPSs/conventional-changelog-action@v5.2.1
-  with:
-    github-token: null
-    git-message: null
-    git-user-name: null
-    git-user-email: null
-    git-pull-method: null
-    git-push: null
-    git-branch: null
-    preset: null
-    tag-prefix: null
-    input-file: null
-    output-file: null
-    release-count: null
-    version-file: null
-    version-path: null
-    skip-git-pull: null
-    skip-on-empty: null
-    skip-version-file: null
-    skip-commit: null
-    skip-tag: null
-    pre-commit: null
-    fallback-version: null
-    config-file-path: null
-    pre-changelog-generation: null
-    git-url: null
-    git-path: null
-    skip-ci: null
-    create-summary: null
-    pre-release: null
-    pre-release-identifier: null
-    skip-bump: null
+name: Your Workflow Name
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v5
+        with:
+          github-token: ${{ secrets.github_token }}
