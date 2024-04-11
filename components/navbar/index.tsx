@@ -3,6 +3,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SearchIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
 import { getSession } from '@/auth';
+import { CartButton } from './cart-button';
 
 // TODO: break components in part
 export async function Navbar() {
@@ -19,18 +20,9 @@ export async function Navbar() {
         </Button>
       </form>
       <nav>
-        <ul className="flex space-x-4 items-center">
+        <ul className="flex space-x-6 items-center">
           <li className="font-medium flex items-center">
-            <Link
-              href="/cart"
-              className={buttonVariants({
-                variant: 'secondary',
-                class: 'gap-2'
-              })}
-            >
-              <ShoppingCartIcon className="w-5" />
-              <span>Cart</span>
-            </Link>
+            <CartButton />
           </li>
 
           {session?.user ? (
