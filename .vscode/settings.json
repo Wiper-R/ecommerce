@@ -1,3 +1,5 @@
 {
-  "conventionalCommits.scopes": ["ui", "validation"]
+  "conventionalCommits.scopes": ["ui", "validation"],
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modifications"
 }
