@@ -4,6 +4,7 @@ import prisma from '@/prisma/db';
 import * as bcrypt from 'bcrypt';
 import { Prisma } from '@prisma/client';
 import { CreateUserSchema, LoginUserSchema } from '@/lib/validation/auth';
+import { logSession } from '@/auth/session';
 
 export async function createUser(data: CreateUserSchema) {
   try {
@@ -55,5 +56,6 @@ export async function loginUser(data: LoginUserSchema) {
   }
 
   const { credentials, ...safe } = user;
+  await logSession(user.id);
   return safe;
 }
