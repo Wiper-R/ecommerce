@@ -4,7 +4,9 @@ import prisma from '@/prisma/db';
 import * as bcrypt from 'bcrypt';
 import { Prisma } from '@prisma/client';
 import { CreateUserSchema, LoginUserSchema } from '@/lib/validation/auth';
-import { logSession } from '@/auth/session';
+import { logSession, verifySession } from '@/auth/session';
+import { cookies } from 'next/headers';
+import config from '@/config/server';
 
 export async function createUser(data: CreateUserSchema) {
   try {
@@ -58,4 +60,12 @@ export async function loginUser(data: LoginUserSchema) {
   const { credentials, ...safe } = user;
   await logSession(user.id);
   return safe;
+}
+
+export async function getCurrentUser() {
+  const token = cookies().get(config.TOKEN_KEY)?.value;
+  if (!token) return null;
+  const jwt = await verifySession(token);
+  if (!jwt?.payload.sub) return null;
+  return await prisma.user.findFirst({ where: { id: jwt.payload.sub } });
 }
