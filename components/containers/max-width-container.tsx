@@ -7,7 +7,7 @@ export function MaxWidthContainer({
 }: ComponentProps<'div'>) {
   return (
     <div
-      className={cn('max-w-screen-xl w-full mx-auto', className)}
+      className={cn('max-w-screen-2xl w-full mx-auto px-4', className)}
       {...props}
     />
   );
