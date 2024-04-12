@@ -11,8 +11,8 @@ import { MaxWidthContainer } from '../containers/max-width-container';
 export async function Navbar() {
   const session = await getSession();
   return (
-    <MaxWidthContainer>
-      <header className="bg-background/40 backdrop-blur sticky top-0 flex justify-between p-4 shadow-sm items-center gap-10">
+    <header className="bg-background/40 backdrop-blur sticky top-0 shadow-sm">
+      <MaxWidthContainer className="flex justify-between p-4 items-center gap-10">
         {/* Logo */}
         <Link href="/" className="text-lg font-semibold italic">
           Kharidify
@@ -46,7 +46,7 @@ export async function Navbar() {
             )}
           </ul>
         </nav>
-      </header>
-    </MaxWidthContainer>
+      </MaxWidthContainer>
+    </header>
   );
 }
