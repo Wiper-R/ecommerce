@@ -2,6 +2,6 @@
   "conventionalCommits.scopes": ["ui", "validation", "deps"],
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "modifications",
-  "cSpell.words": ["hookform"],
+  "cSpell.words": ["hookform", "kharidify"],
   "cSpell.language": "en,lorem"
 }
