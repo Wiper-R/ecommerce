@@ -4,7 +4,7 @@ import { shuffle } from '@/lib/helpers';
 
 const CATEGORY_MAPPING = {
   Electronics: ['Electronics', 'Computers & Accessories', 'Home Improvement'],
-  Mobiles: ['Watches'],
+  Watches: ['Watches'],
   Groceries: ['Grocery & Gourmet Foods'],
   Fashion: [
     'Clothing & Accessories',
@@ -13,8 +13,6 @@ const CATEGORY_MAPPING = {
   ],
   'Home & Kitchen': ['Home & Kitchen', 'Office Products', 'Outdoor Living']
 };
-
-export type Category = keyof typeof CATEGORY_MAPPING;
 
 export async function getProducts(category: Category) {
   return products.filter(
@@ -25,3 +23,6 @@ export async function getProducts(category: Category) {
 export async function getRecommendations() {
   return shuffle(products).slice(0, 10);
 }
+
+export type Product = (typeof products)[0];
+export type Category = keyof typeof CATEGORY_MAPPING;

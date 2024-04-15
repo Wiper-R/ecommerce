@@ -1,50 +1,18 @@
-import CustomerElectronicsImage from '@/public/assets/customer-electronics.png';
-import { Card } from '@/components/ui/card';
 import { MaxWidthContainer } from '@/components/containers/max-width-container';
-import Link from 'next/link';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import { CategorySelection } from '@/components/category-selection';
+import { ProductsGrid } from '@/components/products-grid';
 
-export default async function Home() {
+export default function Home() {
   return (
-    <MaxWidthContainer className="overflow-hidden mt-4">
+    <MaxWidthContainer className="my-10">
       <CategorySelection />
+      <ProductsGrid heading="Electronics" />
+      <ProductsGrid heading="Home & Kitchen" />
+      <ProductsGrid heading="Groceries" />
+      <ProductsGrid heading="Fashion" />
+      <ProductsGrid heading="Watches" />
     </MaxWidthContainer>
-  );
-}
-
-function CategorySelection() {
-  return (
-    <div className="px-4">
-      <div className="overflow-auto flex mt-2 gap-2 mx-auto pb-2">
-        <CategoryItem label="Electronics" />
-        <CategoryItem label="Decoration" />
-        <CategoryItem label="Mobiles" />
-        <CategoryItem label="Groceries" />
-        <CategoryItem label="Electronics" />
-        <CategoryItem label="Decoration" />
-        <CategoryItem label="Mobiles" />
-        <CategoryItem label="Groceries" />
-        <CategoryItem label="Electronics" />
-        <CategoryItem label="Decoration" />
-        <CategoryItem label="Mobiles" />
-        <CategoryItem label="Groceries" />
-        <CategoryItem label="Electronics" />
-        <CategoryItem label="Decoration" />
-        <CategoryItem label="Mobiles" />
-        <CategoryItem label="Groceries" />
-      </div>
-    </div>
-  );
-}
-
-function CategoryItem({ label }: { label: string }) {
-  // TODO: add valid hyperlinks
-  return (
-    <Link
-      href={`/?category=${label}`}
-      className="flex gap-2 shrink-0 py-2 px-4 border rounded items-center"
-    >
-      <img src={CustomerElectronicsImage.src} alt="" className="w-8" />
-      <span className="font-medium text-sm text-center">{label}</span>
-    </Link>
   );
 }
