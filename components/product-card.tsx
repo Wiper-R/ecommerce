@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <Link href={`/product/${product.id}`}>
+    <Link href={`/products/${product.id}`}>
       <div className="grid place-items-center rounded p-5 gap-4">
         <Image
           src={product.image}

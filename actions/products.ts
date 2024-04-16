@@ -24,5 +24,10 @@ export async function getRecommendations() {
   return shuffle(products).slice(0, 10);
 }
 
+export async function getProduct(id: string) {
+  const product = products.find((p) => p.id == id);
+  return product;
+}
+
 export type Product = (typeof products)[0];
 export type Category = keyof typeof CATEGORY_MAPPING;
