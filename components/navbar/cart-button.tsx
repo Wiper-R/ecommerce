@@ -4,7 +4,7 @@ import { ShoppingCartIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // TODO: make items required
-export function CartButton({ items = 0 }: { items: number }) {
+export function CartButton({ items = 0 }: { items?: number }) {
   return (
     <div className="relative">
       <Link
