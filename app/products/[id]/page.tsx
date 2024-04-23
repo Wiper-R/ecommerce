@@ -1,9 +1,10 @@
 import { getProduct } from '@/actions/products';
 import { MaxWidthContainer } from '@/components/containers/max-width-container';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { AddToCartButton } from './add-to-cart';
 
 export default async function Page({
   params: { id }
@@ -23,6 +24,7 @@ export default async function Page({
           width={500}
           height={500}
           className="w-[500px] h-[500px] object-contain"
+          quality={100}
           alt="product-image"
         />
       </div>
@@ -48,9 +50,7 @@ export default async function Page({
           >
             Buy Now
           </Link>
-          <Button size="lg" variant="secondary">
-            Add to Cart
-          </Button>
+          <AddToCartButton productId={data.id} />
         </div>
 
         <h5 className="mt-10 text-xl font-semibold underline">
