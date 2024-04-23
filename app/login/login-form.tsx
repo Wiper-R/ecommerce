@@ -24,6 +24,10 @@ import { toast } from '@/components/ui/use-toast';
 import { useSession } from '@/auth';
 import { LoginSuccessAction } from './page';
 import { loginUser } from '@/actions/auth';
+import Link from 'next/link';
+import { buttonVariants } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { addProductToCart } from '@/actions/cart';
 
 export default function LoginForm({ action }: { action?: LoginSuccessAction }) {
   const form = useForm<LoginUserSchema>({
@@ -31,6 +35,7 @@ export default function LoginForm({ action }: { action?: LoginSuccessAction }) {
     defaultValues: { email: '', password: '' }
   });
 
+  const router = useRouter();
   const { session, dispatch } = useSession();
 
   const onValid = async (data: LoginUserSchema) => {
@@ -42,6 +47,16 @@ export default function LoginForm({ action }: { action?: LoginSuccessAction }) {
 
     toast({ title: 'Success', description: 'Log in successful' });
     dispatch({ type: 'login_success', payload: result });
+
+    // Handle Login Success actions
+    if (action?.addToCart) {
+      await addProductToCart(
+        action.addToCart.productId,
+        action.addToCart.amount
+      );
+    }
+
+    router.push(action?.redirectTo || '/');
 
     // Handle user data?
   };
@@ -88,6 +103,12 @@ export default function LoginForm({ action }: { action?: LoginSuccessAction }) {
             {form.formState.errors.root.message}
           </span>
         )}
+        <div className="text-sm mt-4">
+          Don't have an account?{' '}
+          <Link href="/signup" className={buttonVariants({ variant: 'link' })}>
+            create one
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );
