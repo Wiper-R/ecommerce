@@ -1,6 +1,5 @@
 'use client';
 
-import { createUser, loginUser } from '@/actions/auth';
 import {
   Form,
   FormControl,
@@ -23,8 +22,10 @@ import { SubmitButton } from '@/components/submit-button';
 import { useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { useSession } from '@/auth';
+import { LoginSuccessAction } from './page';
+import { loginUser } from '@/actions/auth';
 
-export default function LoginForm() {
+export default function LoginForm({ action }: { action?: LoginSuccessAction }) {
   const form = useForm<LoginUserSchema>({
     resolver: zodResolver(LoginUserSchema),
     defaultValues: { email: '', password: '' }
@@ -88,7 +89,6 @@ export default function LoginForm() {
           </span>
         )}
       </CardContent>
-      <CardFooter>Logged in as {session.data?.user?.firstName}</CardFooter>
     </Card>
   );
 }
