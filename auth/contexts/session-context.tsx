@@ -36,32 +36,10 @@ const SessionContext = createContext<SessionContext | null>(null);
 const SessionProvider = ({ children }: PropsWithChildren) => {
   const [session, dispatch] = useReducer(sessionReducer, initialState);
 
-  // async function queryFunction() {
-  //   const user = await getCurrentUser();
-  //   console.log(user);
-
-  //   return user;
-  // }
-
   const { data, isFetched } = useQuery({
     queryFn: async () => await getCurrentUser(),
     queryKey: ['user']
   });
-
-  useEffect(() => {
-    console.log(session);
-  }, [session.data]);
-
-  useEffect(() => {
-    console.log(session.state);
-  }, [session.state]);
-
-  // const { data, isFetched } = trpc.auth.user.useQuery(
-  //   undefined,
-  //   {
-  //     retry: 0,
-  //   },
-  // );
 
   useEffect(() => {
     if (!isFetched) return;

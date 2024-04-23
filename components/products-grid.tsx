@@ -1,36 +1,19 @@
-'use client';
-
-import { getProducts } from '@/actions/products';
+import { Category, getProducts } from '@/actions/products';
 import { Card } from './ui/card';
-import { SwiperSlide, Swiper } from 'swiper/react';
-import { Scrollbar } from 'swiper/modules';
 import { ProductCard } from './product-card';
-import { useQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
+import { Separator } from './ui/separator';
 
-export function ProductsGrid({ heading }: { heading: string }) {
-  const { data } = useQuery({
-    queryFn: async () => await getProducts(heading as any),
-    queryKey: ['products', heading],
-    initialData: []
-  });
+export async function ProductsGrid({ category }: { category: Category }) {
+  const data = await getProducts(category);
   return (
     <Card className="p-6 mt-10">
-      <h4 className="text-xl font-semibold">{heading}</h4>
-      <Swiper
-        slidesPerView={5}
-        modules={[Scrollbar]}
-        scrollbar={{
-          hide: true
-        }}
-        className="!pb-4 place-items-start"
-      >
+      <h4 className="text-xl font-semibold">{category}</h4>
+      <Separator orientation="horizontal" className="my-4" />
+      <div className="grid grid-cols-[repeat(auto-fit,_minmax(272px,_1fr))]">
         {data.map((product) => (
-          <SwiperSlide key={product.title}>
-            <ProductCard product={product} />
-          </SwiperSlide>
+          <ProductCard product={product} key={product.id} />
         ))}
-      </Swiper>
+      </div>
     </Card>
   );
 }

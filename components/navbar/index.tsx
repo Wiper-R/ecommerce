@@ -14,7 +14,7 @@ export async function Navbar() {
     <header className="bg-background/40 backdrop-blur sticky top-0 shadow-sm">
       <MaxWidthContainer className="flex justify-between p-4 items-center gap-10">
         {/* Logo */}
-        <Link href="/" className="text-3xl font-semibold italic">
+        <Link href="/" className="text-2xl font-semibold italic">
           Kharidify
         </Link>
         <SearchForm />
