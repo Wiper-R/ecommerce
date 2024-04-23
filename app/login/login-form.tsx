@@ -104,7 +104,7 @@ export default function LoginForm({ action }: { action?: LoginSuccessAction }) {
           </span>
         )}
         <div className="text-sm mt-4">
-          Don't have an account?{' '}
+          {"Don't have an account? "}
           <Link href="/signup" className={buttonVariants({ variant: 'link' })}>
             create one
           </Link>
