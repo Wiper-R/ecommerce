@@ -19,5 +19,6 @@ export default function Page({
 }
 
 export type LoginSuccessAction = {
-  addToCart: { productId: string; amount: number };
+  addToCart?: { productId: string; amount: number };
+  redirectTo?: string;
 };
