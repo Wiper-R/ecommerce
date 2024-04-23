@@ -15,6 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SubmitButton } from '@/components/submit-button';
 import { toast } from '@/components/ui/use-toast';
+import Link from 'next/link';
+import { buttonVariants } from '@/components/ui/button';
 
 export default function SignUpForm() {
   const form = useForm<CreateUserSchema>({
@@ -95,6 +97,12 @@ export default function SignUpForm() {
             <SubmitButton className="mt-5">Create Account</SubmitButton>
           </form>
         </Form>
+        <div className="text-sm mt-4">
+          Already have an account?{' '}
+          <Link href="/login" className={buttonVariants({ variant: 'link' })}>
+            login
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );
