@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AddToCartButton } from './add-to-cart';
+import { formatCurrency } from '@/lib/utils';
 
 export default async function Page({
   params: { id }
@@ -33,7 +34,7 @@ export default async function Page({
         <div className="my-4 text-2xl font-medium">
           <span data-label="real-price">
             {data.price.payable
-              ? `₹ ${data.price.payable}`
+              ? formatCurrency(parseInt(data.price.payable))
               : 'Currently Unavailable'}
           </span>
           <span
@@ -43,7 +44,7 @@ export default async function Page({
             ₹ 89,900
           </span>
         </div>
-        <div className="space-x-2 my-4">
+        <div className="flex gap-4">
           <Link
             className={buttonVariants({ size: 'lg' })}
             href={`/checkout/${data.id}`}

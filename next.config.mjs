@@ -6,6 +6,11 @@ const nextConfig = {
                 hostname: "**",
             }
         ]
+    },
+    experimental: {
+        serverActions: {
+            allowedOrigins: []
+        }
     }
 };
 

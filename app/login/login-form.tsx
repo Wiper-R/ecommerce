@@ -54,6 +54,7 @@ export default function LoginForm({ action }: { action?: LoginSuccessAction }) {
         action.addToCart.productId,
         action.addToCart.amount
       );
+      toast({ description: 'Added item to cart.' });
     }
 
     router.push(action?.redirectTo || '/');

@@ -2,6 +2,8 @@
 import products from '@/data/products.json';
 import { shuffle } from '@/lib/helpers';
 
+// TODO: Use bitwise operations rather than storing database like this
+
 const CATEGORY_MAPPING = {
   Electronics: ['Electronics', 'Computers & Accessories', 'Home Improvement'],
   Watches: ['Watches'],
@@ -26,7 +28,7 @@ export async function getRecommendations() {
 
 export async function getProduct(id: string) {
   const product = products.find((p) => p.id == id);
-  return product;
+  return product || null;
 }
 
 export type Product = (typeof products)[0];

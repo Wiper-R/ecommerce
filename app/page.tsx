@@ -1,6 +1,7 @@
 import { MaxWidthContainer } from '@/components/containers/max-width-container';
 import { CategorySelection } from '@/components/category-selection';
 import { ProductsGrid } from '@/components/products-grid';
+import { MakePaymentButton } from '@/components/make-payment-button';
 
 export default function Home() {
   return (

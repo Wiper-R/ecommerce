@@ -1,5 +1,5 @@
 import { Product } from '@/actions/products';
-import { cn } from '@/lib/utils';
+import { cn, formatCurrency } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -28,7 +28,7 @@ export function ProductCard({ product }: { product: Product }) {
             )}
           >
             {product.price.payable
-              ? `₹ ${product.price.payable}`
+              ? formatCurrency(parseInt(product.price.payable))
               : 'Currently Unavailable'}
           </div>
         </div>
